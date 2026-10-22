@@ -22,7 +22,7 @@ async function openArchive(archive){
  const observer=new MutationObserver(remap);observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['src','href']});remap();
  // Discard login layout styles after decrypting.
  document.head.querySelectorAll('style').forEach(s=>s.remove());
- for(const name of ['data.js','pairwise.js','app.js'])await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=urls[name];s.onload=resolve;s.onerror=reject;document.body.append(s)});
+ for(const name of ['data.js','pairwise.js','rl.js','app.js'])await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=urls[name];s.onload=resolve;s.onerror=reject;document.body.append(s)});
  const lock=document.createElement('button');lock.textContent='锁定 / 退出';lock.style.cssText='position:fixed;right:16px;bottom:16px;z-index:999;padding:10px 16px;background:#195e4c;color:white;border:0;border-radius:8px;cursor:pointer';lock.onclick=()=>location.reload();document.body.append(lock);
  window.addEventListener('pagehide',()=>{observer.disconnect();for(const url of Object.values(urls))URL.revokeObjectURL(url)},{once:true});
 }
